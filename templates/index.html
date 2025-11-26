@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PrimeFono - Home</title>
+    <meta name="autor" content="Dr.Saúde">
+    <meta name="Description" content="Site de Consultas">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="img/favicon-114x114.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --primary: #0078c8;
+            --primary-dark: #005c99;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container_1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container_1 img {
+            height: 50px;
+        }
+        
+        .container_1 h2 {
+            color: var(--primary);
+            margin: 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .divs {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .divs h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .slideshow {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 30px 0;
+            height: 400px;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        
+        .slides img {
+            min-width: 100%;
+            object-fit: cover;
+        }
+        
+        .slideshow-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        
+        .slideshow-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        hr {
+            margin: 30px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+        
+        footer {
+             background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        footer img {
+            margin: 0 5px;
+            height: 31px;
+        }
+        
+        @media (max-width: 768px) {
+            #menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.open {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                border-bottom: 1px solid #eee;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 15px;
+            }
+            
+            .container_1 {
+                flex-wrap: wrap;
+            }
+            
+            .container_1 h2 {
+                font-size: 1.2rem;
+            }
+            
+            .slideshow {
+                height: 250px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container_1">
+            <h2>PrimeFono</h2>
+            <button id="menu-toggle">&#9776;</button>
+            <nav id="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="agendamento.html">Agendar Consultas</a></li>
+                    <li><a href="consultas.html">Minhas Consultas</a></li>
+                    <li><a href="cadastro.html">Cadastro/Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="divs">
+            <h2>Bem vindo a PrimeFono</h2>
+            <p>Mais do que palavras, qualidade de vida.</p>
+        </div>
+
+        <div class="slideshow">
+            <div class="slides">
+                <img src="https://img.freepik.com/fotos-premium/equipe-de-medicos-profissionais-em-mascara-e-uniforme-olhando-para-o-trabalho-hospitalar-da-camera-tratado-com-a-tecnologia-generative-ai_132358-7471.jpg" alt="Médicos" title="Médicos">
+                <img src="https://fcmsantacasasp.edu.br/blog/wp-content/uploads/2022/09/Fonoaudiologia.jpg" alt="Fonoaudiologia" title="Fonoaudiologia">
+                <img src="https://hospitaldocerrado.com.br/wp-content/uploads/2023/07/fonoaudiologa-examina-garganta-de-paciente.jpg" alt="exames" title="exames">
+            </div>
+            <div class="slideshow-controls">
+                <button id="prev">&#10094;</button>
+                <button id="next">&#10095;</button>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="divs">
+            <h2>Nosso Objetivo</h2>
+            <p>
+               O principal objetivo da PrimeFono é promover a saúde da comunicação, da audição e das funções orofaciais, oferecendo atendimentos humanizados e de alta qualidade. A clínica busca proporcionar ao paciente bem-estar, confiança e melhor qualidade de vida, por meio de avaliações precisas e terapias personalizadas. A PrimeFono tem como missão atuar na prevenção, diagnóstico e reabilitação de distúrbios da fala, voz, linguagem e deglutição, utilizando métodos atualizados e tecnologia moderna para alcançar os melhores resultados em cada tratamento.
+            </p>
+        </div>
+
+        <div class="divs">
+            <h2>Nossos Atendimentos</h2>
+            <p>
+               A PrimeFono oferece uma ampla variedade de atendimentos voltados para todas as faixas etárias, desde crianças até idosos. Os serviços incluem avaliações detalhadas e terapias especializadas em áreas como fala, linguagem, voz, audição, motricidade orofacial e disfagia. A clínica também realiza acompanhamento infantil, auxiliando no desenvolvimento da comunicação e na correção de dificuldades na fala. Para adultos e idosos, os atendimentos visam reabilitar a voz, aprimorar a dicção, melhorar a deglutição e tratar perdas auditivas. Todos os atendimentos são conduzidos por profissionais qualificados, que oferecem um cuidado individualizado e humanizado, buscando sempre o conforto e a evolução de cada paciente.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 PrimeFono - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('menu').classList.toggle('open');
+        });
+
+        // Slideshow
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelector('.slides');
+            const images = document.querySelectorAll('.slides img');
+            const prev = document.getElementById('prev');
+            const next = document.getElementById('next');
+
+            let index = 0;
+            const totalSlides = images.length;
+
+            function showSlide(idx) {
+                slides.style.transform = `translateX(${-idx * 100}%)`;
+            }
+
+            prev.addEventListener('click', () => {
+                index = (index > 0) ? index - 1 : totalSlides - 1;
+                showSlide(index);
+            });
+
+            next.addEventListener('click', () => {
+                index = (index < totalSlides - 1) ? index + 1 : 0;
+                showSlide(index);
+            });
+
+            window.addEventListener('resize', () => showSlide(index));
+
+            setInterval(() => {
+                index = (index < totalSlides - 1) ? index + 1 : 0;
+                showSlide(index);
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
