@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clientes Cadastrados - PrimeFono</title>
+  <title>Consultas Agendadas - PrimeFono</title>
   <style>
     * {
       margin: 0;
@@ -81,7 +81,7 @@
     }
 
     /* --- CONTEÚDO PRINCIPAL --- */
-    .clientes-container {
+    .consultas-container {
       background: white;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -90,7 +90,7 @@
       max-width: 1000px;
     }
 
-    .clientes-container h1 {
+    .consultas-container h1 {
       text-align: center;
       color: var(--primary);
       margin-bottom: 20px;
@@ -217,7 +217,7 @@
         padding: 15px;
       }
 
-      .clientes-container {
+      .consultas-container {
         padding: 20px;
       }
     }
@@ -234,29 +234,27 @@
         <ul>
           <li><a href="consultas.html">Consultas</a></li>
           <li><a href="clientes.html">Clientes</a></li>
-          <li><a href="templates/index.html">Sair</a></li>
+          <li><a href="../index.html">Sair</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- CONTEÚDO -->
-  <section class="clientes-container">
-    <h1>Clientes Cadastrados</h1>
+  <section class="consultas-container">
+    <h1>Consultas Agendadas</h1>
 
     <input type="text" id="nome" placeholder="Nome do Cliente">
-    <input type="text" id="telefone" placeholder="Telefone">
-    <input type="email" id="email" placeholder="E-mail">
-    <input type="text" id="CPF" placeholder="CPF">
-    <button onclick="adicionarCliente()">Adicionar Cliente</button>
+    <input type="date" id="data">
+    <input type="time" id="hora">
+    <button onclick="adicionarConsulta()">Adicionar Consulta</button>
 
-    <table id="tabelaClientes">
+    <table id="tabelaConsultas">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Telefone</th>
-          <th>Email</th>
-          <th>CPF</th>
+          <th>Cliente</th>
+          <th>Data</th>
+          <th>Hora</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -274,90 +272,62 @@
     document.getElementById('menu-toggle').addEventListener('click', () => {
       document.querySelector('nav ul').classList.toggle('open');
     });
-  
-    // CRUD CLIENTES
-    let clientes = [];
-  
-    // --- Buscar clientes do servidor ---
-    async function carregarClientes() {
-      try {
-        const resposta = await fetch('/api/clientes');
-        const dados = await resposta.json();
-        clientes = dados;
-        mostrarClientes();
-      } catch (error) {
-        console.error('Erro ao carregar clientes:', error);
-      }
+
+    // CRUD CONSULTAS
+    let consultas = [];
+
+    function adicionarConsulta() {
+      const nome = document.getElementById('nome').value;
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+
+      if (!nome || !data || !hora) return alert('Preencha todos os campos.');
+
+      consultas.push({ nome, data, hora });
+      mostrarConsultas();
+      limparCampos();
     }
-  
-    // --- Mostrar clientes na tabela ---
-    function mostrarClientes() {
-      const tbody = document.querySelector('#tabelaClientes tbody');
+
+    function mostrarConsultas() {
+      const tbody = document.querySelector('#tabelaConsultas tbody');
       tbody.innerHTML = '';
-  
-      clientes.forEach((c, i) => {
+      consultas.forEach((c, i) => {
         tbody.innerHTML += `
           <tr>
             <td>${c.nome}</td>
-            <td>${c.telefone}</td>
-            <td>${c.email}</td>
-            <td>${c.cpf}</td>
+            <td>${c.data}</td>
+            <td>${c.hora}</td>
             <td class="actions">
-              <button class="edit" onclick="editarCliente(${i})">Editar</button>
-              <button class="delete" onclick="excluirCliente(${i})">Excluir</button>
+              <button class="edit" onclick="editarConsulta(${i})">Editar</button>
+              <button class="delete" onclick="excluirConsulta(${i})">Excluir</button>
             </td>
           </tr>`;
       });
     }
-  
-    // --- Adicionar cliente (apenas local, sem backend) ---
-    function adicionarCliente() {
-      const nome = document.getElementById('nome').value;
-      const telefone = document.getElementById('telefone').value;
-      const email = document.getElementById('email').value;
-      const CPF = document.getElementById('CPF').value;
-  
-      if (!nome || !telefone || !email || !CPF) {
-        alert('Preencha todos os campos.');
-        return;
-      }
-  
-      clientes.push({ nome, telefone, email, cpf: CPF });
-      mostrarClientes();
-      limparCampos();
-    }
-  
-    // --- Editar cliente (local) ---
-    function editarCliente(index) {
-      const c = clientes[index];
+
+    function editarConsulta(index) {
+      const c = consultas[index];
       const novoNome = prompt('Editar nome:', c.nome);
-      const novoTel = prompt('Editar telefone:', c.telefone);
-      const novoEmail = prompt('Editar email:', c.email);
-      const novoCPF = prompt('Editar CPF:', c.cpf);
-      if (novoNome && novoTel && novoEmail && novoCPF) {
-        clientes[index] = { nome: novoNome, telefone: novoTel, email: novoEmail, cpf: novoCPF };
-        mostrarClientes();
+      const novaData = prompt('Editar data (AAAA-MM-DD):', c.data);
+      const novaHora = prompt('Editar hora (HH:MM):', c.hora);
+      if (novoNome && novaData && novaHora) {
+        consultas[index] = { nome: novoNome, data: novaData, hora: novaHora };
+        mostrarConsultas();
       }
     }
-  
-    // --- Excluir cliente (local) ---
-    function excluirCliente(index) {
-      if (confirm('Deseja excluir este cliente?')) {
-        clientes.splice(index, 1);
-        mostrarClientes();
+
+    function excluirConsulta(index) {
+      if (confirm('Deseja excluir esta consulta?')) {
+        consultas.splice(index, 1);
+        mostrarConsultas();
       }
     }
-  
+
     function limparCampos() {
       document.getElementById('nome').value = '';
-      document.getElementById('telefone').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('CPF').value = '';
+      document.getElementById('data').value = '';
+      document.getElementById('hora').value = '';
     }
-  
-    // --- Carregar clientes assim que a página abrir ---
-    carregarClientes();
   </script>
-  
 </body>
 </html>
